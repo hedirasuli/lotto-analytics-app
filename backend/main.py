@@ -96,3 +96,37 @@ async def get_prediction():
     }
     
     return {"error": "No data found"}
+
+@app.get("/statistics")
+async def get_statistics():
+    """Returns frequency data for the UI bar chart"""
+    df = get_db_data()
+    if df is not None and not df.empty:
+        all_numbers = [num for sublist in df['primary_numbers'] for num in sublist]
+        stats = [{"number": n, "frequency": f} for n, f in Counter(all_numbers).most_common(10)]
+        return {"data": stats}
+    return {"data": []}
+
+@app.get("/history")
+async def get_history():
+    """Returns latest draws for the history tab"""
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        query = "SELECT * FROM lottery_results ORDER BY draw_date DESC LIMIT 30"
+        df = pd.read_sql(query, conn)
+        conn.close()
+        
+        history = []
+        for _, row in df.iterrows():
+            history.append({
+                "draw_date": str(row['draw_date']),
+                "primary_numbers": row['primary_numbers'],
+                "bonus_numbers": row['bonus_numbers']
+            })
+        return {"data": history}
+    except:
+        return {"data": []}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
