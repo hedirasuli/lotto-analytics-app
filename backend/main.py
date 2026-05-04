@@ -58,3 +58,41 @@ def get_weighted_random(numbers_list, range_max, pick_count):
     weights /= weights.sum()
     
     return np.random.choice(possible_numbers, size=pick_count, replace=False, p=weights)
+
+@app.get("/predict")
+async def get_prediction():
+    df = get_db_data()
+    if df is None or df.empty: return {"error": "No data"}
+
+    all_primaries = [num for sublist in df['primary_numbers'] for num in sublist]
+    all_bonus = [num for sublist in df['bonus_numbers'] for num in sublist]
+    counts = Counter(all_primaries)
+
+    def get_weighted(pool, count, range_max):
+        c = Counter(pool)
+        weights = [c.get(i, 0) + 1 for i in range(1, range_max + 1)]
+        return sorted(np.random.choice(range(1, range_max + 1), size=count, replace=False, p=np.array(weights)/sum(weights)).tolist())
+
+    # Create strategies with their own localized keys and separate super numbers
+    return {
+        "analyzed_draws": len(df),
+        "strategies": [
+            {
+                "id": "hot",
+                "numbers": sorted([n for n, f in counts.most_common(6)]),
+                "super": int(random.choice(all_bonus)) # Random from history
+            },
+            {
+                "id": "cold",
+                "numbers": sorted(list(range(1, 50)), key=lambda x: counts.get(x, 0))[:6],
+                "super": random.randint(0, 9) # Fresh random
+            },
+            {
+                "id": "smart",
+                "numbers": get_weighted(all_primaries, 6, 49),
+                "super": int(get_weighted(all_bonus, 1, 9)[0])
+            }
+        ]
+    }
+    
+    return {"error": "No data found"}
