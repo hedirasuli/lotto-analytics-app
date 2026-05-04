@@ -126,3 +126,48 @@ def fetch_statistics():
         # Catch any other unexpected errors during file processing
         print(f"💥 Critical error in fetch_statistics: {e}")
         return []
+    
+    def fetch_history(limit=20):
+    """Fetches the last N draw results for Page 3"""
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+    try:
+        query = "SELECT * FROM lottery_results ORDER BY draw_date DESC LIMIT %s"
+        cur.execute(query, (limit,))
+        return cur.fetchall()
+    except Exception as e:
+        print(f"❌ History Error: {e}")
+        return []
+    finally:
+        cur.close()
+        conn.close()
+
+def save_to_db(game_type, draw_date, primary_nums, bonus_nums):
+    """Saves a single draw result to the database"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        query = """
+            INSERT INTO lottery_results (game_type, draw_date, primary_numbers, bonus_numbers)
+            VALUES (%s, %s, %s, %s)
+            ON CONFLICT (game_type, draw_date) DO NOTHING;
+        """
+        cur.execute(query, (game_type, draw_date, primary_nums, bonus_nums))
+        conn.commit()
+        cur.close()
+        conn.close()
+        print(f"✅ Success: Data for {draw_date} saved.")
+    except Exception as e:
+        print(f"❌ Database Error: {e}")
+
+# FIX: Merged the two redundant __name__ == "__main__" blocks into one
+if __name__ == "__main__":
+    print("Manual test start...")
+    fetch_actual_lotto_data()
+    
+    print("\n🧪 Testing CSV Data Processing...")
+    results = fetch_statistics()
+    if results:
+        print(f"✅ Success! Sample data: {results[:3]}") # Show first 3 numbers
+    else:
+        print("❌ Failed! Check if the CSV file name is correct.")
