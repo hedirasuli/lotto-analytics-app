@@ -129,3 +129,45 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+    langWrapper: { position: 'absolute', top: 15, left: 8, zIndex: 10 },
+    langButton: { backgroundColor: '#e8f5e9', padding: 10, borderRadius: 12, borderWidth: 1, borderColor: '#c8e6c9' },
+    langText: { fontSize: 16, fontWeight: '700', color: '#2e7d32' },
+    headerTitle: { fontSize: 32, fontWeight: '900', color: theme.colors.primary, marginTop: 100, textAlign: 'center' },
+    headerSubtitle: { color: theme.colors.accent, textAlign: 'center', fontSize: 16, marginBottom: 20 },
+    drawsInfo: { color: theme.colors.textMuted, marginBottom: 15, textAlign: 'center', fontWeight: '600' },
+    strategyCard: { marginBottom: 20, padding: 15, width: '92%', alignSelf: 'center' },
+    strategyName: { fontSize: 20, fontWeight: 'bold', color: theme.colors.primary, textAlign: 'center' },
+    strategyDesc: { fontSize: 12, color: '#666', textAlign: 'center', marginBottom: 10 },
+    ballRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 6 },
+    superBall: { backgroundColor: theme.colors.superzahl, borderColor: '#fff', borderWidth: 2 },
+    
+    /* --- BUTTON STYLING --- */
+    bottomActionArea: {
+      width: '100%',
+      alignItems: 'center',      // Centers button horizontally
+      justifyContent: 'center',    // Centers button vertically in its area
+      marginTop: 10,
+      paddingBottom: 20,
+    },
+    centerBtn: {
+      minWidth: '60%',            // Gives a professional width
+      paddingHorizontal: 30,
+      elevation: 5,               // Shadow for Android
+      shadowColor: '#000',        // Shadow for iOS
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+    },
+    buttonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 18,
+      textAlign: 'center'
+    },
+    errorContainer: {
+      alignItems: 'center',
+      marginTop: 50
+    }
+  });
