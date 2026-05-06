@@ -6,24 +6,33 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from collections import Counter
 import warnings
+import os
+from dotenv import load_dotenv
 warnings.filterwarnings("ignore", category=UserWarning)
 
 app = FastAPI()
 
 # Enable CORS for frontend communication
+origins = [
+    "http://localhost:8081",
+    "http://192.168.178.23:8081",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
+load_dotenv()
+
 DB_CONFIG = {
-    "dbname": "postgres",
-    "user": "postgres",
-    "password": "REMOVED_SECRET",
-    "host": "localhost",
-    "port": "5432"
+    "dbname": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("DB_PORT")
 }
 
 def get_db_data():
