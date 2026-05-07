@@ -7,6 +7,7 @@ import Animated, { FadeInDown, BounceIn } from 'react-native-reanimated';
 import axios from 'axios';
 import { translations } from '../src/locals';
 import { globalStyles, theme } from '../src/styles';
+import { API_ENDPOINTS } from '../src/config';
 
 export default function App() {
   /* 1. STATE & LANGUAGE LOGIC */
@@ -23,11 +24,10 @@ export default function App() {
     if (!refreshing) setLoading(true);
     setError(null);
     
-    // Ensure this IP matches your local computer's IP
-    const url = 'http://192.168.178.23:8000/predict';
+    
     
     try {
-        const response = await axios.get(url);
+        const response = await axios.get(API_ENDPOINTS.PREDICT);
         setData(response.data);
     } catch (err: any) {
         console.error("API Error:", err);
