@@ -14,6 +14,7 @@ import {
 import { BarChart } from "react-native-gifted-charts";
 import { translations } from "../src/locals";
 import { globalStyles, theme } from "../src/styles";
+import { API_ENDPOINTS } from '../src/config';
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -32,8 +33,8 @@ export default function StatsScreen() {
     setError(null);
 
     try {
-      const url = "http://192.168.178.23:8000/statistics";
-      const response = await axios.get(url);
+      const url = "API_ENDPOINTS.STATS";
+      const response = await axios.get(API_ENDPOINTS.STATS);
 
       if (response.data && response.data.data) {
         const rawData = response.data.data;
@@ -42,7 +43,9 @@ export default function StatsScreen() {
         setStatsData(finalData);
       }
     } catch (err) {
+      if (__DEV__) {
       console.error("Fetch error:", err);
+    }
       setError("Error loading statistics");
     } finally {
       setLoading(false);
