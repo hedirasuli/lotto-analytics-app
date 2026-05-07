@@ -30,7 +30,9 @@ export default function App() {
         const response = await axios.get(API_ENDPOINTS.PREDICT);
         setData(response.data);
     } catch (err: any) {
+      if (__DEV__) {
         console.error("API Error:", err);
+      }
         setError(t.error);
     } finally {
         setLoading(false);

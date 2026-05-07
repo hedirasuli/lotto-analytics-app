@@ -3,6 +3,7 @@ import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, RefreshCon
 import axios from 'axios';
 import { translations } from '../src/locals';
 import { globalStyles, theme } from '../src/styles';
+import { API_ENDPOINTS } from '../src/config';
 
 export default function HistoryScreen() {
   /* State for language and data */
@@ -18,10 +19,12 @@ export default function HistoryScreen() {
     if (!refreshing) setLoading(true);
     
     try {
-      const response = await axios.get('http://192.168.178.23:8000/history');
+      const response = await axios.get(API_ENDPOINTS.HISTORY);
       setHistoryData(response.data.data);
-    } catch (err) {
+    } catch (err: any) {
+      if (__DEV__) {
       console.error("History Fetch Error:", err);
+    }
     } finally {
       setLoading(false);
       setRefreshing(false); // Stop the pull-down spinner
