@@ -32,6 +32,7 @@ export default function App() {
     } catch (err: any) {
       if (__DEV__) {
         console.error("API Error:", err);
+        
       }
         setError(t.error);
     } finally {

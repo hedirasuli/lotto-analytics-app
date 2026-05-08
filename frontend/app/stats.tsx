@@ -34,7 +34,8 @@ export default function StatsScreen() {
 
     try {
       const url = "API_ENDPOINTS.STATS";
-      const response = await axios.get(API_ENDPOINTS.STATS);
+      const response = await axios.get(API_ENDPOINTS.STATS
+      );
 
       if (response.data && response.data.data) {
         const rawData = response.data.data;

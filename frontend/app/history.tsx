@@ -23,6 +23,7 @@ export default function HistoryScreen() {
       setHistoryData(response.data.data);
     } catch (err: any) {
       if (__DEV__) {
+        
       console.error("History Fetch Error:", err);
     }
     } finally {
