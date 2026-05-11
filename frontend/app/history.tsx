@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
-import { translations } from '../src/locals';
+import { useLanguage } from '../src/context/LanguageContext'; // Import the hook to access language context
 import { globalStyles, theme } from '../src/styles';
 import { API_ENDPOINTS } from '../src/config';
 
 export default function HistoryScreen() {
   /* State for language and data */
   const [lang, setLang] = useState<'de' | 'en'>('de');
-  const t = translations[lang];
+  const { language, setLanguage, t } = useLanguage(); // Use the hook to get translations and language state
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [historyData, setHistoryData] = useState<any[]>([]);
@@ -64,7 +64,9 @@ export default function HistoryScreen() {
         
         {/* 1. Language Toggle Button */}
         <TouchableOpacity 
-          onPress={() => setLang(lang === 'de' ? 'en' : 'de')}
+          // Use setLanguage from context instead of setLang
+          onPress={() => setLanguage(language === 'de' ? 'en' : 'de')}
+        
           style={{ 
             alignSelf: 'flex-start', 
             backgroundColor: '#e8f5e9', 
@@ -80,7 +82,7 @@ export default function HistoryScreen() {
           }}
         >
           <Text style={{ fontWeight: 'bold', color: '#2e7d32', fontSize: 16 }}>
-            {lang === 'de' ? '🇩🇪 DE' : '🇺🇸 EN'}
+          {language === 'de' ? '🇩🇪 DE' : '🇺🇸 EN'}
           </Text>
         </TouchableOpacity>
 
@@ -95,7 +97,7 @@ export default function HistoryScreen() {
             textShadowOffset: { width: 1, height: 1 },
             textShadowRadius: 5
           }}>
-            {translations['de'].title}
+            {t.historyTitle}
           </Text>
           <Text style={{ 
             fontSize: 18, 
@@ -104,7 +106,7 @@ export default function HistoryScreen() {
             textAlign: 'center',
             marginTop: -5
           }}>
-            {translations['en'].title}
+            {t.historySubtitle}
           </Text>
         </View>
 
