@@ -12,7 +12,7 @@ import {
 } from "react-native";
 // New high-performance chart library
 import { BarChart } from "react-native-gifted-charts";
-import { translations } from "../src/locals";
+import { useLanguage } from '../src/context/LanguageContext'; // Import the hook
 import { globalStyles, theme } from "../src/styles";
 import { API_ENDPOINTS } from '../src/config';
 
@@ -20,8 +20,8 @@ const { width: screenWidth } = Dimensions.get("window");
 
 export default function StatsScreen() {
   /* --- 1. STATES --- */
-  const [lang, setLang] = useState<"de" | "en">("de");
-  const t = translations[lang];
+  // Clean this up to just one line:
+  const { language, setLanguage, t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [statsData, setStatsData] = useState<any[]>([]);
@@ -97,11 +97,13 @@ export default function StatsScreen() {
       >
         {/* Language Switcher */}
         <TouchableOpacity
-          onPress={() => setLang(lang === "de" ? "en" : "de")}
+          // Use setLanguage from context to update the whole app
+          onPress={() => setLanguage(language === "de" ? "en" : "de")}
           style={styles.langBtn}
         >
           <Text style={styles.langText}>
-            {lang === "de" ? "🇩🇪 DE" : "🇺🇸 EN"}
+           {/* Use global language variable */}
+           {language === "de" ? "🇩🇪 DE" : "🇺🇸 EN"}
           </Text>
         </TouchableOpacity>
 
@@ -110,7 +112,8 @@ export default function StatsScreen() {
         {/* MODERN BAR CHART CARD */}
         <View style={[globalStyles.glassCard, styles.chartCard]}>
           <Text style={styles.cardHeader}>
-            {lang === "de" ? "Heiße Zahlen" : "Hot Numbers"}
+           {/* Use translation key instead of hardcoded ternary operator */}
+           {t.hotNumbers}
           </Text>
 
           {statsData.length > 0 ? (
@@ -148,7 +151,7 @@ export default function StatsScreen() {
         {/* FREQUENCY DETAILS LIST */}
         <View style={[globalStyles.glassCard, styles.listCard]}>
           <Text style={styles.listHeader}>
-            {lang === "de" ? "Häufigkeitsdetails" : "Frequency Details"}
+          {t.frequencyDetails}
           </Text>
 
           {statsData.map((item, index) => (
@@ -158,13 +161,13 @@ export default function StatsScreen() {
                   <Text style={styles.ballText}>{item.number}</Text>
                 </View>
                 <Text style={styles.itemLabel}>
-                  {lang === "de" ? "Nummer" : "Number"} {item.number}
+                {t.numberLabel} {item.number}
                 </Text>
               </View>
 
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
-                  {item.frequency} {lang === "de" ? "Mal" : "times"}
+                {item.frequency} {t.timesLabel}
                 </Text>
               </View>
             </View>
