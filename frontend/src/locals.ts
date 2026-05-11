@@ -12,6 +12,12 @@ export const translations = {
       coldDesc: "Zahlen, die selten erscheinen",
       smartTitle: "Smart Mix",
       smartDesc: "Gewichtete statistische Chance",
+      hotNumbers: "Heiße Zahlen",
+      frequencyDetails: "Häufigkeitsdetails",
+      numberLabel: "Nummer",
+      timesLabel: "Mal",
+      noData: "Keine Daten verfügbar",
+      errorLoading: "Fehler beim Laden der Statistik"
     },
     en: {
       title: "Lotto Analytics",
@@ -26,5 +32,11 @@ export const translations = {
       coldDesc: "Numbers that rarely appear",
       smartTitle: "Smart Mix",
       smartDesc: "Weighted statistical probability",
+      hotNumbers: "Hot Numbers",
+      frequencyDetails: "Frequency Details",
+      numberLabel: "Number",
+      timesLabel: "times",
+      noData: "No data available",
+      errorLoading: "Error loading statistics"
     }
   };
