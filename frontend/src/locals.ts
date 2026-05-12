@@ -1,7 +1,23 @@
 export const translations = {
     de: {
+      // Header & Tabs
+      home: "Startseite",
+      stats: "Statistiken",
+      history: "Verlauf",
       title: "Lotto Vorhersage",
+
+      // History Screen
+      historyTitle: "Historie",
+      historySubtitle: "Ihre vergangenen Ziehungen",
+      noHistoryFound: "Keine Daten gefunden",
+
+      // Stats Screen
+      hotNumbers: "Heiße Zahlen",
+      frequencyDetails: "Häufigkeitsdetails",
+      numberLabel: "Nummer",
+      timesLabel: "Mal",
       subtitle: "KI-gestützte Analyse der Ziehungen",
+
       drawsLabel: "Basierend auf {count} Ziehungen",
       updateBtn: "Aktualisieren",
       error: "Verbindung zum Server fehlgeschlagen",
@@ -12,19 +28,35 @@ export const translations = {
       coldDesc: "Zahlen, die selten erscheinen",
       smartTitle: "Smart Mix",
       smartDesc: "Gewichtete statistische Chance",
-      hotNumbers: "Heiße Zahlen",
-      frequencyDetails: "Häufigkeitsdetails",
-      numberLabel: "Nummer",
-      timesLabel: "Mal",
       noData: "Keine Daten verfügbar",
       errorLoading: "Fehler beim Laden der Statistik"
     },
     en: {
+      // Header & Tabs
+      home: "Home",
+      stats: "Stats",
+      history: "History",
+
+      // History Screen
+      historyTitle: "History",
+      historySubtitle: "Your past draws",
+      noHistoryFound: "No history found",
+
+      // Stats Screen
+      hotNumbers: "Hot Numbers",
+      frequencyDetails: "Frequency Details",
+      numberLabel: "Number",
+      timesLabel: "times",
+
+      // Common
+      error: "Failed to connect to server",
+      loading: "Loading...",
+
       title: "Lotto Analytics",
       subtitle: "AI-Powered Draw Predictions",
       drawsLabel: "Based on {count} draws",
       updateBtn: "Update Prediction",
-      error: "Failed to connect to server",
+
       // Strategy specific translations
       hotTitle: "Hot Numbers",
       hotDesc: "Most frequent in history",
@@ -32,10 +64,7 @@ export const translations = {
       coldDesc: "Numbers that rarely appear",
       smartTitle: "Smart Mix",
       smartDesc: "Weighted statistical probability",
-      hotNumbers: "Hot Numbers",
-      frequencyDetails: "Frequency Details",
-      numberLabel: "Number",
-      timesLabel: "times",
+      
       noData: "No data available",
       errorLoading: "Error loading statistics"
     }
