@@ -8,11 +8,11 @@ import axios from 'axios';
 import { translations } from '../src/locals';
 import { globalStyles, theme } from '../src/styles';
 import { API_ENDPOINTS } from '../src/config';
+import { useLanguage } from '../src/context/LanguageContext';
 
 export default function App() {
   /* 1. STATE & LANGUAGE LOGIC */
-  const [lang, setLang] = useState<'de' | 'en'>('de');
-  const t = translations[lang]; 
+  const { language, setLanguage, t } = useLanguage(); 
 
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -57,10 +57,10 @@ export default function App() {
       {/* LANGUAGE SWITCHER */}
       <View style={styles.langWrapper}>
         <TouchableOpacity 
-          onPress={() => setLang(lang === 'de' ? 'en' : 'de')}
+          onPress={() => setLanguage(language === 'de' ? 'en' : 'de')}
           style={styles.langButton}
         >
-          <Text style={styles.langText}>{lang === 'de' ? '🇩🇪 DE' : '🇺🇸 EN'}</Text>
+          <Text style={styles.langText}>{language === 'de' ? '🇩🇪 DE' : '🇺🇸 EN'}</Text>
         </TouchableOpacity>
       </View>
 
