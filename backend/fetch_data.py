@@ -6,7 +6,7 @@ from datetime import datetime
 DB_CONFIG = {
     "dbname": "postgres",
     "user": "postgres",
-    "password": "REMOVED_SECRET", # I used the password from your screenshot
+    "password": "REMOVED_SECRET", 
     "host": "localhost",
     "port": "5432"
 }
