@@ -7,7 +7,6 @@ import { API_ENDPOINTS } from '../src/config';
 
 export default function HistoryScreen() {
   /* State for language and data */
-  const [lang, setLang] = useState<'de' | 'en'>('de');
   const { language, setLanguage, t } = useLanguage(); // Use the hook to get translations and language state
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
